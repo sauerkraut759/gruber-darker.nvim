@@ -32,6 +32,7 @@ local DEFAULTS = {
 	},
 	undercurl = true,
 	underline = true,
+	transparent_bg = false,
 }
 
 ---@class ConfigMgr

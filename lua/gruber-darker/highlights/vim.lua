@@ -15,12 +15,43 @@ function M.setup()
 	end
 end
 
+if opts.transparent_bg then
+	---Normal text
+	M.highlights.normal = Highlight.new("Normal", { fg = c.fg, bg = c.none })
+	---Normal text in non-current windows
+	M.highlights.normal_non_current = Highlight.new("NormalNC", { fg = c.fg, bg = c.none })
+	---Placeholder characters substituted for concealed text (see 'conceallevel')
+	M.highlights.conceal = Highlight.new("Conceal", { fg = c.fg, bg = c.none })
+	---Diff mode: Added line |diff.txt|
+	M.highlights.diff_add = Highlight.new("DiffAdd", { fg = c.green, bg = c.bg })
+	---Diff mode: Changed line |diff.txt|
+	M.highlights.diff_change = Highlight.new("DiffChange", { fg = c.yellow, bg = c.bg })
+	---Diff mode: Deleted line |diff.txt|
+	M.highlights.diff_delete = Highlight.new("DiffDelete", { fg = c["red+1"], bg = c.bg })
+	---Diff mode: Changed text within a changed line |diff.txt|
+	M.highlights.diff_text = Highlight.new("DiffText", { fg = c.yellow, bg = c.bg })
+
+else
+	---Normal text
+	M.highlights.normal = Highlight.new("Normal", { fg = c.fg, bg = c.bg })
+	---Normal text in non-current windows
+	M.highlights.normal_non_current = Highlight.new("NormalNC", { fg = c.fg, bg = c.bg })
+	---Placeholder characters substituted for concealed text (see 'conceallevel')
+	M.highlights.conceal = Highlight.new("Conceal", { fg = c.fg, bg = c.bg })
+	---Diff mode: Added line |diff.txt|
+	M.highlights.diff_add = Highlight.new("DiffAdd", { fg = c.green, bg = c.none })
+	---Diff mode: Changed line |diff.txt|
+	M.highlights.diff_change = Highlight.new("DiffChange", { fg = c.yellow, bg = c.none })
+	---Diff mode: Deleted line |diff.txt|
+	M.highlights.diff_delete = Highlight.new("DiffDelete", { fg = c["red+1"], bg = c.none })
+	---Diff mode: Changed text within a changed line |diff.txt|
+	M.highlights.diff_text = Highlight.new("DiffText", { fg = c.yellow, bg = c.none })
+end
+
 ---Any comment
 M.highlights.comment = Highlight.new("Comment", { fg = c.brown, italic = opts.italic.comments })
 ---Used for the columns set with 'colorcolumn'
 M.highlights.color_column = Highlight.new("ColorColumn", { bg = c["bg+2"] })
----Placeholder characters substituted for concealed text (see 'conceallevel')
-M.highlights.conceal = Highlight.new("Conceal", { fg = c.fg, bg = c.bg })
 ---Character under the cursor
 M.highlights.cursor = Highlight.new("Cursor", { bg = c.yellow })
 ---The character under the cursor when |language-mapping| is used (see 'guicursor')
@@ -33,15 +64,6 @@ M.highlights.cursor_column = Highlight.new("CursorColumn", { bg = c["bg+2"] })
 M.highlights.cursor_line = Highlight.new("CursorLine", { bg = c["bg+1"] })
 ---Directory names (and other special names in listings)
 M.highlights.directory = Highlight.new("Directory", { link = gruber_hl.niagara_bold })
-
----Diff mode: Added line |diff.txt|
-M.highlights.diff_add = Highlight.new("DiffAdd", { fg = c.green, bg = c.none })
----Diff mode: Changed line |diff.txt|
-M.highlights.diff_change = Highlight.new("DiffChange", { fg = c.yellow, bg = c.none })
----Diff mode: Deleted line |diff.txt|
-M.highlights.diff_delete = Highlight.new("DiffDelete", { fg = c["red+1"], bg = c.none })
----Diff mode: Changed text within a changed line |diff.txt|
-M.highlights.diff_text = Highlight.new("DiffText", { fg = c.yellow, bg = c.none })
 
 ---Fugitive highlights; might need separate provider for git related plugins
 M.highlights.diff_added = Highlight.new("diffAdded", { link = M.highlights.diff_add })
@@ -89,10 +111,7 @@ M.highlights.mode_msg = Highlight.new("ModeMsg", { link = gruber_hl.fg2 })
 M.highlights.more_msg = Highlight.new("MoreMsg", { fg = c["fg+2"] })
 ---'@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 M.highlights.non_text = Highlight.new("NonText", { link = M.highlights.end_of_buffer })
----Normal text
-M.highlights.normal = Highlight.new("Normal", { fg = c.fg, bg = c.bg })
----Normal text in non-current windows
-M.highlights.normal_non_current = Highlight.new("NormalNC", { fg = c.fg, bg = c.bg })
+
 ---Normal text in sidebar
 M.highlights.normal_sidebar = Highlight.new("NormalSB", { fg = c.fg, bg = c["bg-1"] })
 ---Normal text in floating windows.
